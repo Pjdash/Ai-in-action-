@@ -2,13 +2,13 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const csv = require('csv-parser');
 const fs = require('fs');
-const { v4: uuidv4 } = require('uuid'); // To generate unique IDs
-const Product = require('./models/Product'); // Adjust path if needed
-const SaleOrder = require('./models/SaleOrder'); // Adjust path if needed
-const Supplier = require('./models/Supplier'); // Adjust path if needed
-const { generateContent } = require('./ai_service'); // If you use Gemini for descriptions
+const { v4: uuidv4 } = require('uuid'); 
+const Product = require('./models/Product'); 
+const SaleOrder = require('./models/SaleOrder');
+const Supplier = require('./models/Supplier'); 
+const { generateContent } = require('./ai_service'); 
 
-const csvFilePath = 'data/Fashion_Retail_Sales.csv'; // Path to your CSV file
+const csvFilePath = 'data/Fashion_Retail_Sales.csv'; 
 
 async function importData() {
   try {
@@ -51,13 +51,7 @@ async function importData() {
 
             let description = "";
 
-            //If you want to use Gemini for descriptions, uncomment the following block
-            // try{
-            //     description = await generateContent(`Generate a short, descriptive product description for a fashion item named "${itemName}". Include material, style, and a few keywords.`);
-            // }catch(error){
-            //     console.error("Gemini description generation failed:", error);
-            //     description = "Generic fashion item description."; //Fallback
-            // }
+         
 
             product = {
                 product_id: productId,

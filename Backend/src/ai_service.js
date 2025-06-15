@@ -1,8 +1,31 @@
+// src/ai_service.js
+
+require('dotenv').config(); // THIS MUST BE AT THE VERY TOP
+
+// Dynamic import for node-fetch (required for Node.js < v18 to provide fetch, Headers, Request, Response globally)
+// This must be an async IIFE (Immediately Invoked Function Expression)
+(async () => {
+    try {
+        // Dynamically import node-fetch. It returns an object with fetch, Headers, etc.
+        const { default: fetch, Headers, Request, Response } = await import('node-fetch');
+
+        // Make them globally available if they aren't already (for older Node.js versions)
+        if (!globalThis.fetch) globalThis.fetch = fetch;
+        if (!globalThis.Headers) globalThis.Headers = Headers;
+        if (!globalThis.Request) globalThis.Request = Request;
+        if (!globalThis.Response) globalThis.Response = Response;
+
+        console.log("node-fetch polyfill applied for older Node.js versions.");
+    } catch (e) {
+        console.warn("Could not load node-fetch polyfill. Ensure Node.js v18+ is used or node-fetch is installed correctly for older versions.", e);
+    }
+})();
+
+// Your existing Google Generative AI setup
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-require('dotenv').config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-pro" }); // Or "gemini-1.5-flash" for faster responses
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); // Or "gemini-1.5-flash" for faster responses
 
 async function generateContent(prompt) {
     try {
@@ -15,7 +38,11 @@ async function generateContent(prompt) {
     }
 }
 
+// ... (rest of your functions like summarizeSalesSnapshot, suggestUnderperformerActions, etc.)
+// KEEP ALL YOUR EXISTING FUNCTIONS BELOW THE SETUP CODE
+
 async function summarizeSalesSnapshot(data) {
+    // ... (your existing code for this function)
     if (!data || data.length === 0) {
         return "No sales data available for summarization.";
     }
@@ -29,6 +56,7 @@ Provide insights in bullet points, followed by actionable recommendations.`;
 }
 
 async function suggestUnderperformerActions(data) {
+    // ... (your existing code for this function)
     if (!data || data.length === 0) {
         return "No underperforming products found to suggest actions for.";
     }
@@ -42,6 +70,7 @@ Provide detailed recommendations for each product listed.`;
 }
 
 async function analyzeSupplierPerformance(data) {
+    // ... (your existing code for this function)
     if (!data || data.length === 0) {
         return "No supplier performance data available for analysis.";
     }
@@ -55,6 +84,7 @@ Provide insights and recommendations in a structured format.`;
 }
 
 async function analyzeTrend(keyword, productsData) {
+    // ... (your existing code for this function)
     if (!productsData || productsData.length === 0) {
         return `No relevant product data found for the "${keyword}" trend to analyze.`;
     }
@@ -72,7 +102,6 @@ Relevant Products:\n${productsString}
 Provide insights in a concise, actionable format.`;
     return generateContent(prompt);
 }
-
 
 module.exports = {
     generateContent, // Exported in case you want to use it for dynamic product descriptions during import
