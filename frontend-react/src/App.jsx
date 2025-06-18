@@ -31,7 +31,9 @@ const useTypingEffect = (text, speed = 25) => {
     return displayedText;
 };
 
-const BACKEND_URL = 'http://localhost:3000'; // IMPORTANT: Match your backend's PORT
+// --- IMPORTANT: UPDATE THIS URL ---
+// Change this to your deployed Render backend URL
+const BACKEND_URL = 'https://ai-in-action-1.onrender.com';
 
 function App() {
     // State for Sales & Profit Snapshot
@@ -53,11 +55,11 @@ function App() {
     const [trendKeyword, setTrendKeyword] = useState('');
     const [trendAiInsights, setTrendAiInsights] = useState("Enter a keyword and click 'Analyze Trend' for trend insights.");
     const typedTrendAiInsights = useTypingEffect(trendAiInsights);
-    const [trendRawData, setTrendRawData] = useState(null); // Keep this to display raw trend data
+    const [trendRawData, setTrendRawData] = useState(null);
 
 
     // --- Helper function to fetch data ---
-    async function fetchData(endpoint) { // Simplified to only GET method
+    async function fetchData(endpoint) {
         try {
             const response = await fetch(`${BACKEND_URL}${endpoint}`);
             if (!response.ok) {
@@ -141,11 +143,11 @@ function App() {
     };
 
 
-    // --- Raw Data Renderers (Ensuring only fetched data is displayed clearly) ---
+    // --- Raw Data Renderers ---
 
     const renderSalesRawData = (data) => {
         if (!data) return 'Click "Get Insights" to load sales data.';
-        if (typeof data === 'string') return data; // Display error message directly
+        if (typeof data === 'string') return data;
 
         if (data.length === 0) return 'No sales data available for the selected period.';
 
@@ -168,7 +170,7 @@ function App() {
 
     const renderUnderperformersRawData = (data) => {
         if (!data) return 'Click "Get Insights" to load underperforming products data.';
-        if (typeof data === 'string') return data; // Display error message directly
+        if (typeof data === 'string') return data;
 
         if (data.length === 0) return 'No underperforming products found.';
 
@@ -192,7 +194,7 @@ function App() {
 
     const renderSupplierRawData = (data) => {
         if (!data) return 'Click "Get Insights" to load supplier performance data.';
-        if (typeof data === 'string') return data; // Display error message directly
+        if (typeof data === 'string') return data;
 
         if (data.length === 0) return 'No supplier performance data found.';
 
@@ -201,7 +203,7 @@ function App() {
                 {data.map((supplier, index) => (
                     <li key={index} className="data-item">
                         {supplier.supplier_id && <><strong>Supplier ID:</strong> {supplier.supplier_id}<br /></>}
-                        {supplier.supplier_name && <><strong>Supplier Name:</strong> {supplier.supplier_name}<br /></>}
+                        {supplier.supplier_name && <><strong>Supplier Name:</strong> {supplier.supplier_name}<br /></ /></>}
                         {(supplier.total_sales !== undefined && supplier.total_sales !== null) && <><strong>Total Sales:</strong> ${supplier.total_sales.toFixed(2)}<br /></>}
                         {(supplier.total_profit !== undefined && supplier.total_profit !== null) && <><strong>Total Profit:</strong> ${supplier.total_profit.toFixed(2)}<br /></>}
                         {(supplier.avg_profit_margin !== undefined && supplier.avg_profit_margin !== null) && <><strong>Avg. Profit Margin:</strong> {supplier.avg_profit_margin.toFixed(2)}%<br /></>}
@@ -217,11 +219,10 @@ function App() {
 
     const renderTrendRawData = (data, keyword) => {
         if (!data) return 'Enter keyword & click "Analyze Trend" to load product data.';
-        if (typeof data === 'string') return data; // Display error message directly
+        if (typeof data === 'string') return data;
 
         if (data.length === 0) return `No products found matching "${keyword}".`;
 
-        // If data is an array of strings (e.g., just product names from earlier simplified output)
         if (Array.isArray(data) && typeof data[0] === 'string') {
             return (
                 <ul className="data-list">
@@ -231,7 +232,6 @@ function App() {
                 </ul>
             );
         }
-        // If data is an array of product objects
         return (
             <ul className="data-list">
                 {data.map((product, index) => (
@@ -250,7 +250,7 @@ function App() {
     return (
         <>
             <header>
-                <h1>TrendEdge</h1> {/* Changed title */}
+                <h1>TrendEdge</h1>
                 <p>Leveraging AI for smarter fashion retail decisions.</p>
             </header>
 
@@ -306,7 +306,7 @@ function App() {
                         <input
                             type="text"
                             id="trendKeyword"
-                            placeholder="e.g., 't-shirt', 'denim', 'boho chic'" // Updated placeholder
+                            placeholder="e.g., 't-shirt', 'denim', 'boho chic'"
                             value={trendKeyword}
                             onChange={(e) => setTrendKeyword(e.target.value)}
                         />
@@ -324,7 +324,7 @@ function App() {
             </main>
 
             <footer>
-                <p>&copy; 2024 TrendEdge.</p> {/* Removed "Powered by Gemini" */}
+                <p>&copy; 2024 TrendEdge.</p>
             </footer>
         </>
     );
