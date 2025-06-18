@@ -1,15 +1,10 @@
-// src/ai_service.js
 
-require('dotenv').config(); // THIS MUST BE AT THE VERY TOP
+require('dotenv').config(); 
 
-// Dynamic import for node-fetch (required for Node.js < v18 to provide fetch, Headers, Request, Response globally)
-// This must be an async IIFE (Immediately Invoked Function Expression)
 (async () => {
     try {
-        // Dynamically import node-fetch. It returns an object with fetch, Headers, etc.
         const { default: fetch, Headers, Request, Response } = await import('node-fetch');
 
-        // Make them globally available if they aren't already (for older Node.js versions)
         if (!globalThis.fetch) globalThis.fetch = fetch;
         if (!globalThis.Headers) globalThis.Headers = Headers;
         if (!globalThis.Request) globalThis.Request = Request;
@@ -21,7 +16,7 @@ require('dotenv').config(); // THIS MUST BE AT THE VERY TOP
     }
 })();
 
-// Your existing Google Generative AI setup
+
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -38,11 +33,10 @@ async function generateContent(prompt) {
     }
 }
 
-// ... (rest of your functions like summarizeSalesSnapshot, suggestUnderperformerActions, etc.)
-// KEEP ALL YOUR EXISTING FUNCTIONS BELOW THE SETUP CODE
+
 
 async function summarizeSalesSnapshot(data) {
-    // ... (your existing code for this function)
+
     if (!data || data.length === 0) {
         return "No sales data available for summarization.";
     }
@@ -84,7 +78,7 @@ Provide insights and recommendations in a structured format.`;
 }
 
 async function analyzeTrend(keyword, productsData) {
-    // ... (your existing code for this function)
+    
     if (!productsData || productsData.length === 0) {
         return `No relevant product data found for the "${keyword}" trend to analyze.`;
     }
@@ -93,7 +87,7 @@ async function analyzeTrend(keyword, productsData) {
         description: p.description,
         category: p.category,
         material: p.material
-    })), null, 2); // Send only relevant product fields
+    })), null, 2); 
 
     const prompt = `A fashion buyer is exploring the trend "${keyword}". Based on the following product data, identify key characteristics of this trend (e.g., common materials, styles, aesthetics, color palettes). Suggest what types of new products or features a buyer should consider sourcing to capitalize on this trend, and highlight any current inventory that strongly aligns with this emerging trend.
 
@@ -104,7 +98,7 @@ Provide insights in a concise, actionable format.`;
 }
 
 module.exports = {
-    generateContent, // Exported in case you want to use it for dynamic product descriptions during import
+    generateContent, 
     summarizeSalesSnapshot,
     suggestUnderperformerActions,
     analyzeSupplierPerformance,

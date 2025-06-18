@@ -1,71 +1,185 @@
 /* src/App.css */
+
+/* General Card Styling */
 .card {
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 30px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card h2 {
-    color: #34495e;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card-title {
+    color: #2c3e50;
     margin-top: 0;
-    font-size: 1.8rem;
-    border-bottom: 2px solid #ecf0f1;
-    padding-bottom: 10px;
+    font-size: 2rem;
+    border-bottom: 2px solid #e0e6e9;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* Card Actions (Buttons) */
+.card-actions {
+    display: flex;
+    gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.card h3 {
-    color: #7f8c8d;
-    font-size: 1.2rem;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-button {
-    background-color: #3498db;
+.card-actions button {
+    background-image: linear-gradient(to right, #3498db 0%, #2980b9 100%);
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    border-radius: 25px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-bottom: 15px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    margin-bottom: 0;
 }
 
 button:hover {
     background-color: #2980b9;
 }
 
+.card-actions button:hover {
+    background-image: linear-gradient(to right, #2980b9 0%, #3498db 100%);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transform: translateY(-2px);
+}
+
+/* Chart Container (No longer central, effectively hidden as per previous request) */
+.chart-container {
+    height: 0; /* Effectively hide it */
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    display: none; /* Ensure it's not taking up space */
+}
+
+.placeholder-chart {
+    display: none; /* Hide placeholder text for charts too */
+}
+
+
+/* --- Styles for Raw Data Display --- */
+.raw-data-display h3 {
+    color: #34495e;
+    font-size: 1.4rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e6e9;
+    padding-bottom: 10px;
+}
+
+.raw-data-display .data-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f0f7f9;
+    border-left: 5px solid #2ecc71;
+    border-radius: 8px;
+    padding: 20px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+}
+
+.raw-data-display .data-item {
+    padding: 10px 0;
+    border-bottom: 1px dotted #d0e0e5;
+    font-size: 0.95em;
+    color: #2c3e50;
+    line-height: 1.6;
+}
+
+.raw-data-display .data-item:last-child {
+    border-bottom: none;
+}
+
+
+/* AI Insights Area */
+.ai-insights h3 {
+    color: #34495e;
+    font-size: 1.4rem;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #e0e6e9;
+    padding-bottom: 10px;
+}
+
+.ai-insights pre {
+    background-color: #eaf3f8;
+    border-left: 5px solid #3498db;
+    border-radius: 8px;
+    padding: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1em;
+    color: #2c3e50; /* Ensure text is visible on light background */
+    max-height: 400px;
+    overflow-y: auto;
+    line-height: 1.7;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+/* Typing cursor animation */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #333; } /* Adjust color to match your text */
+}
+
+.ai-insights pre {
+    border-right: .08em solid transparent;
+    animation: blink-caret .75s step-end infinite;
+}
+
+/* Trend Input Specifics */
 .trend-input {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .trend-input input[type="text"] {
     flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border: 1px solid #c0c0c0;
+    border-radius: 8px;
     font-size: 1rem;
+    background-color: #333; /* Assuming a dark background for the input */
+    color: #f8f8f8; /* Changed to a light color for visibility on dark background */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.content-area pre {
-    background-color: #ecf0f1;
-    border-radius: 5px;
-    padding: 15px;
-    white-space: pre-wrap; /* Ensures text wraps */
-    word-wrap: break-word; /* Ensures long words break */
-    font-size: 0.9em;
-    color: #2c3e50; /* Completed this line */
-    max-height: 400px; /* Limit height */
-    overflow-y: auto; /* Enable scrolling */
-    border: 1px solid #dee2e6; /* Completed this line */
+.trend-input input[type="text"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+    outline: none;
 }
+
+/* Specific card color themes (optional, for visual distinction) */
+.sales-card { border-top: 5px solid #3498db; }
+.underperformers-card { border-top: 5px solid #e67e22; }
+.supplier-card { border-top: 5px solid #1abc9c; }
+.trend-card { border-top: 5px solid #9b59b6; }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -73,7 +187,31 @@ button:hover {
         grid-template-columns: 1fr;
         padding: 15px;
     }
-    header h1 {
-        font-size: 2rem;
+    .card {
+        padding: 20px;
+    }
+    .card-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .card-actions button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .trend-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .trend-input input, .trend-input button {
+        width: 100%;
+    }
+    .raw-data-display .data-list {
+        padding: 15px;
+    }
+    .raw-data-display .data-item {
+        font-size: 0.9em;
+    }
+    .ai-insights pre {
+        font-size: 0.95em;
     }
 }
