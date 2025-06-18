@@ -203,7 +203,7 @@ function App() {
                 {data.map((supplier, index) => (
                     <li key={index} className="data-item">
                         {supplier.supplier_id && <><strong>Supplier ID:</strong> {supplier.supplier_id}<br /></>}
-                        {supplier.supplier_name && <><strong>Supplier Name:</strong> {supplier.supplier_name}<br /></ /></>}
+                        {supplier.supplier_name && <><strong>Supplier Name:</strong> {supplier.supplier_name}<br /></>} {/* Corrected this line */}
                         {(supplier.total_sales !== undefined && supplier.total_sales !== null) && <><strong>Total Sales:</strong> ${supplier.total_sales.toFixed(2)}<br /></>}
                         {(supplier.total_profit !== undefined && supplier.total_profit !== null) && <><strong>Total Profit:</strong> ${supplier.total_profit.toFixed(2)}<br /></>}
                         {(supplier.avg_profit_margin !== undefined && supplier.avg_profit_margin !== null) && <><strong>Avg. Profit Margin:</strong> {supplier.avg_profit_margin.toFixed(2)}%<br /></>}
