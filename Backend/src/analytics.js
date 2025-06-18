@@ -1,7 +1,7 @@
 // src/analytics.js
-const SaleOrder = require('../models/SaleOrder');
-const Product = require('../models/Product');
-const Supplier = require('../models/Supplier');
+const SaleOrder = require('./models/SaleOrder');
+const Product = require('./models/Product');
+const Supplier = require('./models/Supplier');
 const mongoose = require('mongoose');
 
 async function getSalesProfitSnapshot() {
